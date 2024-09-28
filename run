@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "pwd: $(pwd)"
+echo "\$0: $0"
+SCRIPTPATH=$(readlink -f "$0")
+SCRIPTDIR=$(dirname "$SCRIPTPATH")
+echo "SCRIPTPATH:: $SCRIPTPATH"
+read -p "What file are your questions saved in?: " QUESTION_FILEPATH
+read -p "What file do you want the answers to be saved?: " ANSWER_FILEPATH
+
+PYTHON_FILEPATH="$SCRIPTDIR/main.py"
+python3 "$PYTHON_FILEPATH" "$QUESTION_FILEPATH" "$ANSWER_FILEPATH" "$(pwd)"

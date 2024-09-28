@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# argument $0 = ./askquestion
+# argument $1 = question number
+# argument $2 = question itself (string)
+# argument $3 = output file
+
+# echo "QUESTION: $2"
+# echo "QUESTION NUMBER: $1"
+
+# readlink is used here in case you want to bind the scripts entry point (the run script) to a symbolic link. Otherwise, it doesn't change anything
+SCRIPTPATH=$(readlink -f "$0")
+SCRIPTDIR=$(dirname "$SCRIPTPATH") # this gives the the path of this file's directory WITH NO SLASH at the end
+echo "ASKING QUESTION: $2"
+AI_COMMAND=$(cat $SCRIPTDIR/commandconfig)
+AI_OUTPUT=$(eval "$AI_COMMAND")
+# write to file
+echo "-------------------------------------" >>"$3"
+echo -e "QUESTION NUMBER: $1\n\n" >>"$3"
+echo -e "QUESTION:\n\n$2\n" >>"$3"
+echo -e "ANSWER:\n\n$AI_OUTPUT" >>"$3"
+echo "-------------------------------------" >>"$3"
+echo -e "\n\n\n\n\n" >>"$3"
