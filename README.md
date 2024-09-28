@@ -12,6 +12,13 @@ It will prompt you to enter the filepath for the file containing a list of quest
 The script runs on the background, so you will regain control of your shell once you input the filepaths. 
 If you're not able to regain control of the shell, press enter a couple times and see what happens
 
+You can pass the file path for both files in two ways:
+1. relative (ex: ```questions.txt``` or ```./questions.txt```)
+2. absolute (ex: ```/home/username/Documents/questions.txt```)
+
+> [!WARNING]
+> Please refrain from using ```~``` or ```$HOME``` as a shortcut for the home directory, I don't think it works (use the full absolute filepath in that case)
+
 ## Setup Guidelines
 1. #### Specifying the AI command
 
