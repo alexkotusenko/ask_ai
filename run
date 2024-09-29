@@ -1,12 +1,42 @@
 #!/bin/bash
 
-echo "pwd: $(pwd)"
-echo "\$0: $0"
+# echo "pwd: $(pwd)"
+# echo "\$0: $0"
 SCRIPTPATH=$(readlink -f "$0")
 SCRIPTDIR=$(dirname "$SCRIPTPATH")
-echo "SCRIPTPATH:: $SCRIPTPATH"
-read -p "What file are your questions saved in?: " QUESTION_FILEPATH
-read -p "What file do you want the answers to be saved?: " ANSWER_FILEPATH
+# echo "SCRIPTPATH:: $SCRIPTPATH"
+
+print_help_menu() {
+	echo ASK AI
+	echo -e "\t-h / --help - show this window"
+	echo -e "\t--in [filepath] - pre-specify the question file filepath"
+	echo -e "\t--out [filepath] - pre-specify the question file filepath"
+}
+
+if [ "$1" == "-h" ]; then
+	print_help_menu
+	exit 0
+elif [ "$1" == "--help" ]; then
+	print_help_menu
+	exit 0
+fi
+	
+
+if [ "$1" == "--in" ]; then
+	QUESTION_FILEPATH=$2
+elif [ "$3" == "--in" ]; then
+	QUESTION_FILEPATH=$4
+else
+	read -p "What file are your questions saved in?: " QUESTION_FILEPATH
+fi
+
+if [ "$1" == "--out" ]; then
+	ANSWER_FILEPATH=$2
+elif [ "$3" == "--out" ]; then
+	ANSWER_FILEPATH=$4
+else
+	read -p "What file do you want the answers to be saved?: " ANSWER_FILEPATH
+fi
 
 PYTHON_FILEPATH="$SCRIPTDIR/main.py"
 python3 "$PYTHON_FILEPATH" "$QUESTION_FILEPATH" "$ANSWER_FILEPATH" "$(pwd)"
